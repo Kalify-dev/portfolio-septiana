@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "ext-intl": "*",
+        "ext-zip": "*",
         "doctrine/dbal": "^4.4",
         "filament/filament": "3.x",
         "laravel/framework": "^12.0",
