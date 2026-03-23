@@ -11,9 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasColumn('galeris', 'judul_kegiatan')) {
+            Schema::table('galeris', function (Blueprint $table) {
+                $table->string('judul_kegiatan')->after('id')->nullable();
+            });
+        }
+        
+        if (!Schema::hasColumn('galeris', 'deskripsi_singkat')) {
+            Schema::table('galeris', function (Blueprint $table) {
+                $table->text('deskripsi_singkat')->after('judul_kegiatan')->nullable();
+            });
+        }
+
         Schema::table('galeris', function (Blueprint $table) {
-            $table->string('judul_kegiatan')->after('id')->nullable();
-            $table->text('deskripsi_singkat')->after('judul_kegiatan')->nullable();
             $table->string('caption')->nullable()->change();
             $table->text('foto')->change(); // To allow larger arrays of multiple photos
         });
