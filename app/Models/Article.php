@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Article extends Model
+{
+    protected $table = 'artikels'; // Keep table name to avoid migration issues
+
+    protected $fillable = ['judul', 'slug', 'konten', 'excerpt', 'thumbnail', 'is_published', 'published_at'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+        'is_published' => 'boolean',
+    ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'article_id');
+    }
+}
