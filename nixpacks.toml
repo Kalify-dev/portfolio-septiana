@@ -13,9 +13,8 @@ cmds = [
     "mkdir -p storage/app/private/livewire-tmp",
     "mkdir -p storage/app/livewire-tmp",
     "mkdir -p bootstrap/cache",
-    "chmod -R 777 storage bootstrap/cache",
-    "php artisan migrate --force"
+    "chmod -R 777 storage bootstrap/cache"
 ]
 
 [start]
-cmd = "php artisan storage:link --force && php artisan serve --host 0.0.0.0 --port $PORT"
+cmd = "php artisan migrate --force && php artisan storage:link --force && php artisan serve --host 0.0.0.0 --port $PORT"
