@@ -58,11 +58,9 @@
             "@php artisan filament:upgrade"
         ],
         "post-install-cmd": [
-            "@php artisan storage:link --force"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan storage:link --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
