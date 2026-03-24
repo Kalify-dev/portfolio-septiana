@@ -22,7 +22,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->environment('production')) {
-            URL::forceScheme('https');
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
+        // Force storage link on every boot for Railway ephemeral filesystem
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link --force');
+        } catch (\Exception $e) {
+            // Silently fail if artisan is not available or command fails
         }
     }
 }

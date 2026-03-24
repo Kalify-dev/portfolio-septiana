@@ -60,7 +60,7 @@
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="inline-block opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-all duration-500">
-                    <img src="{{ asset('images/logo/kalify_logo.png') }}" 
+                    <img src="{{ asset('assets/images/kalify_logo.png') }}" 
                          class="h-8 md:h-10 w-auto ml-auto" 
                          alt="Kalify.dev - Engineered for Simplicity">
                 </a>

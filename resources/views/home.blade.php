@@ -14,7 +14,7 @@
             {{-- Foto Kiri --}}
             <div class="w-full md:w-5/12 relative group">
                 <div class="aspect-[4/5] overflow-hidden rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000">
-                    <img src="{{ $profile && $profile->image ? asset('storage/' . $profile->image) : asset('images/biografi/FOTO-4.jpeg') }}"
+                    <img src="{{ $profile && $profile->image ? asset('storage/' . $profile->image) : asset('assets/images/bg-login.jpg') }}"
                          alt="{{ $profile->name ?? 'Septiana Agustin' }}"
                          class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[3s]">
                 </div>

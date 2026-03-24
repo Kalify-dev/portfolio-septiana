@@ -51,7 +51,7 @@
 
     /* Left Side: 50% Lebar dengan Gambar Vibes */
     .custom-left {
-        width: 50%; background-image: url('{{ asset('images/assets/bg-login.jpg') }}'); 
+        width: 50%; background-image: url('{{ asset('assets/images/bg-login.jpg') }}'); 
         background-size: cover; background-position: center 30%; background-repeat: no-repeat;
         display: flex; align-items: flex-end; justify-content: center; position: relative;
         padding-bottom: 8.5rem;

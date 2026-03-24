@@ -28,9 +28,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\App\Filament\Pages\Auth\Login::class)
             ->brandName('Septiana Agustin')
-            ->brandLogo(asset('images/logo/kalify_logo.png'))
+            ->brandLogo(asset('assets/images/kalify_logo.png'))
             ->brandLogoHeight('2.5rem')
-            ->favicon(asset('images/logo/favicon.png'))
+            ->favicon(asset('assets/images/favicon.png'))
             ->colors([
                 'primary' => Color::Amber,
                 'gray' => Color::Stone,
