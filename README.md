@@ -1,59 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<br>
 
-## About Laravel
+# ✦ Septiana Agustin — Portfolio
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Website Portofolio Profesional Pendidik & Penulis Indonesia**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-portfolio--septiana-production.up.railway.app-c9a96e?style=for-the-badge&logoColor=white)](https://portfolio-septiana-production.up.railway.app/)
+[![Built with Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Filament](https://img.shields.io/badge/Filament-3-FDAE4B?style=for-the-badge)](https://filamentphp.com)
+[![Deployed on Railway](https://img.shields.io/badge/Railway-Deployed-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+</div>
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## ✦ Tentang Proyek
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Website portofolio editorial bergaya premium untuk **Dr. Septiana Agustin, M.Pd** — seorang Penulis, Pendidik, dan Kepala Sekolah asal Bondowoso, Jawa Timur.
 
-## Laravel Sponsors
+Dibangun dengan estetika tinggi terinspirasi dari gaya editorial sastra modern Indonesia, menampilkan tipografi mewah, animasi sinematik, dan pengalaman membaca yang mendalam.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## ✦ Fitur Utama
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Fitur | Keterangan |
+|-------|-----------|
+| 🎨 **Hero Parallax** | Background dinamis dengan GSAP smooth scroll |
+| 📖 **Biografi Editorial** | Tampilan drop-cap bergaya majalah sastra |
+| 📚 **Koleksi Buku & Karya** | Showcase publikasi dengan cover art |
+| ✍️ **Artikel Blog** | Konten tulisan yang dapat dipublish dari admin |
+| 🖼️ **Galeri Kegiatan** | Mosaic grid foto kegiatan full-width |
+| 🔒 **Admin Panel** | Dashboard Filament 3 untuk kelola semua konten |
+| 💾 **Persistent Storage** | Railway Volume untuk upload foto permanen |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ✦ Tech Stack
 
-## Code of Conduct
+```
+Backend   : Laravel 12 (PHP 8.2)
+Admin     : Filament 3
+Frontend  : Blade + Alpine.js + Tailwind CSS
+Animation : GSAP 3 + AOS
+Build     : Vite
+Deploy    : Railway (Nixpacks)
+Database  : MySQL (Railway)
+Storage   : Railway Volume (Persistent)
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## ✦ Instalasi Lokal
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+# Clone repository
+git clone https://github.com/Kalify-dev/portfolio-septiana.git
+cd portfolio-septiana
 
-## License
+# Install dependensi
+composer install
+npm install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Konfigurasi environment
+cp .env.example .env
+php artisan key:generate
+
+# Setup database
+php artisan migrate --seed
+
+# Buat symlink storage
+php artisan storage:link
+
+# Jalankan build & server
+npm run dev
+php artisan serve
+```
+
+---
+
+## ✦ Konfigurasi Admin Panel
+
+Akses admin panel di: `http://localhost:8000/admin`
+
+Buat user admin pertama:
+```bash
+php artisan make:filament-user
+```
+
+### Kelola Konten via Admin:
+- **Profil** → Foto profil, biografi, headline
+- **Quote** → Kutipan + foto background hero
+- **Buku** → Koleksi buku & karya
+- **Galeri** → Upload foto kegiatan
+- **Artikel** → Tulis & publish artikel
+
+---
+
+## ✦ Deployment (Railway)
+
+Proyek ini sudah dikonfigurasi untuk Railway dengan:
+- **Builder**: Nixpacks (PHP 8.2 + Node.js 20)
+- **Database**: MySQL Railway service
+- **Storage**: Railway Volume di `/app/storage/app/public`
+- **Start Command**: `sh scripts/railway-start.sh`
+- **Healthcheck**: `/up`
+
+### Variabel Environment yang Dibutuhkan:
+```env
+APP_KEY=
+APP_URL=https://your-domain.up.railway.app
+APP_ENV=production
+APP_DEBUG=false
+
+DB_HOST=${MySQL.MYSQLHOST}
+DB_PORT=${MySQL.MYSQLPORT}
+DB_DATABASE=${MySQL.MYSQLDATABASE}
+DB_USERNAME=${MySQL.MYSQLUSER}
+DB_PASSWORD=${MySQL.MYSQLPASSWORD}
+FILESYSTEM_DISK=public
+```
+
+---
+
+## ✦ Update Aset Frontend
+
+Setiap ada perubahan CSS/JS/Tailwind, jalankan:
+```bash
+npm run build
+git add public/build
+git commit -m "Build: update assets"
+git push origin main
+```
+
+---
+
+<div align="center">
+
+**Dibangun dengan ❤️ oleh [Kalify.dev](https://kalifydev.netlify.app)**
+
+*"Selagi masih sehat dan sempat, berikanlah kebermanfaatan bagi sesama."*
+— Dr. Septiana Agustin, M.Pd
+
+</div>
