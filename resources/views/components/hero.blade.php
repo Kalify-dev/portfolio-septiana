@@ -2,7 +2,7 @@
 
 <!-- PARALLAX HERO SECTION (DEE LESTARI INSPIRED) -->
 <section class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover" 
-         style="background-image: url('{{ $quote && $quote->foto_hero ? asset('storage/' . $quote->foto_hero) : ($profile && $profile->image ? asset('storage/' . $profile->image) : asset('assets/images/bg-login.jpg')) }}');">
+         style="background-image: url('{{ $quote && $quote->foto_hero ? asset('storage/' . $quote->foto_hero) : ($profile && $profile->hero_image ? asset('storage/' . $profile->hero_image) : ($profile && $profile->image ? asset('storage/' . $profile->image) : asset('assets/images/bg-login.jpg'))) }}');">
     
     <!-- Sophisticated Overlay: bg-black/50 for perfect readability -->
     <div class="absolute inset-0 bg-black/50 z-0"></div>

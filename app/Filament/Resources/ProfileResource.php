@@ -34,8 +34,19 @@ class ProfileResource extends Resource
                             ->directory('img')
                             ->disk('public')
                             ->columnSpanFull()
-                            ->label('Foto Profil Utama'),
+                            ->label('Foto Profil Utama (tampil di section Biografi)'),
                     ])->columns(2),
+
+                Forms\Components\Section::make('🖼️ Foto Background Hero (Halaman Atas)')
+                    ->description('Foto ini yang tampil sebagai background layar penuh di bagian paling atas website. Pisah dari foto profil biografi.')
+                    ->schema([
+                        Forms\Components\FileUpload::make('hero_image')
+                            ->image()
+                            ->directory('img/hero')
+                            ->disk('public')
+                            ->columnSpanFull()
+                            ->label('Foto Background Hero'),
+                    ]),
                 
                 Forms\Components\Section::make('Biografi Editorial')
                     ->schema([
