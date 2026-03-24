@@ -17,7 +17,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? 'Nana — Septiana Agustin | Penulis & Pendidik' }}">
     <meta property="og:description" content="{{ $metaDescription ?? 'Jelajahi karya dan perjalanan inspiratif Septiana Agustin — penulis, pendidik, dan kepala sekolah dari Bondowoso, Jawa Timur.' }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('storage/pp_nana_vibes.jpg') }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('images/assets/bg-login.jpg') }}">
     <meta property="og:locale" content="id_ID">
     <meta property="og:site_name" content="Septiana Agustin">
 
@@ -25,7 +25,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $title ?? 'Nana — Septiana Agustin' }}">
     <meta name="twitter:description" content="{{ $metaDescription ?? 'Penulis, Pendidik, dan Kepala Sekolah dari Bondowoso, Jawa Timur.' }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('storage/pp_nana_vibes.jpg') }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('images/assets/bg-login.jpg') }}">
 
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('images/logo/favicon.png') }}" type="image/png">
