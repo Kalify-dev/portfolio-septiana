@@ -51,7 +51,7 @@
                 @endphp
                 @foreach($navLinks as $link)
                 <li>
-                        <a href="{{ $link['target'] === 'home' ? url('/') : url('/') . '#' . $link['target'] }}" 
+                        <a href="{{ $link['target'] === 'home' ? url('/') : '#' . $link['target'] }}" 
                            @click="open = false"
                            class="group flex items-center justify-center gap-6 font-cormorant text-4xl md:text-7xl lg:text-8xl text-[#fdfbf7] hover:text-[#c9a96e] transition-all duration-500 tracking-tighter w-full cursor-pointer">
                             <span class="font-jost text-xs tracking-[6px] uppercase text-[#c9a96e]/30 group-hover:text-[#c9a96e] transition-colors duration-500">

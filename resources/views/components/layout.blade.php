@@ -74,17 +74,20 @@
             document.getElementById('luxe-body').classList.remove('opacity-0');
         });
 
-        // Init GSAP Scroll
+        // Init GSAP Scroll (waits for navbar overlay to close first)
         document.querySelectorAll('a[href^="#"]').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = this.getAttribute('href');
-                gsap.to(window, {
-                    duration: 2.5, 
-                    scrollTo: { y: target, offsetY: 95 }, 
-                    ease: "power4.inOut",
-                    overwrite: true
-                });
+                // Wait for Alpine overlay close transition (500ms)
+                setTimeout(() => {
+                    gsap.to(window, {
+                        duration: 2.5, 
+                        scrollTo: { y: target, offsetY: 95 }, 
+                        ease: "power4.inOut",
+                        overwrite: true
+                    });
+                }, 520);
             });
         });
 
