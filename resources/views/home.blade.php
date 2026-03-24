@@ -125,17 +125,64 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-32">
-                @forelse($books as $i => $buku)
-                <div class="group border-b border-white/5 pb-20 hover:border-[#c9a96e]/40 transition-all duration-1000 cursor-default">
-                    <span class="text-white/10 font-cormorant text-7xl group-hover:text-[#c9a96e]/20 transition-colors">
-                        {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
-                    </span>
-                    <h3 class="font-cormorant text-4xl text-[#fdfbf7] group-hover:text-[#c9a96e] transition-colors italic leading-tight mt-10 mb-6 drop-shadow-md">
-                        {{ $buku->judul }}
-                    </h3>
-                    <p class="font-jost text-[10px] tracking-[4.5px] text-white/40 uppercase opacity-60">{{ $buku->penulis ?? $buku->tipe }}</p>
-                    <div class="w-8 h-[1px] bg-[#c9a96e]/20 mt-10 group-hover:w-full group-hover:bg-[#c9a96e]/40 transition-all duration-1000"></div>
-                </div>
+                @forelse($books as $index => $buku)
+                    <article class="group border-t border-[#c9a96e]/20 pt-8 mt-4 hover:border-[#c9a96e]/50 transition-colors duration-500">
+                        @if($buku->cover)
+                            <!-- With Cover Image -->
+                            <div class="flex flex-col md:flex-row gap-8 items-start">
+                                <div class="w-full md:w-1/3 shrink-0 overflow-hidden aspect-[3/4] relative bg-[#1a110a]">
+                                    <img src="{{ asset('storage/' . $buku->cover) }}" 
+                                         alt="Cover {{ $buku->judul }}" 
+                                         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out">
+                                </div>
+                                <div class="w-full md:w-2/3 flex flex-col justify-between">
+                                    <div>
+                                        <div class="font-jost text-4xl text-[#c9a96e]/30 font-light tracking-widest mb-4">
+                                            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                        </div>
+                                        <h3 class="font-cormorant text-3xl md:text-4xl text-[#fdfbf7] italic font-light mb-2 group-hover:text-[#c9a96e] transition-colors">
+                                            {{ $buku->judul }}
+                                        </h3>
+                                        <p class="font-jost text-[9px] tracking-[4px] uppercase text-white/50 mb-6 font-medium">
+                                            {{ $buku->penulis }}
+                                        </p>
+                                        @if($buku->deskripsi)
+                                            <p class="font-jost text-sm text-[#fdfbf7]/60 leading-relaxed font-light line-clamp-3">
+                                                {{ $buku->deskripsi }}
+                                            </p>
+                                        @endif
+                                    </div>
+                                    <div class="mt-8">
+                                        <span class="inline-flex items-center gap-4 text-[#c9a96e] font-jost text-[10px] tracking-[4px] uppercase group-hover:text-white transition-colors duration-300">
+                                            <span>Detail Buku</span>
+                                            <span class="w-8 h-[1px] bg-[#c9a96e] group-hover:w-12 group-hover:bg-white transition-all duration-500"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Text Only Layout (No Cover) -->
+                            <div class="font-jost text-4xl text-[#c9a96e]/30 font-light tracking-widest mb-6">
+                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            </div>
+                            <h3 class="font-cormorant text-3xl md:text-5xl text-[#fdfbf7] italic font-light mb-4 group-hover:text-[#c9a96e] transition-colors duration-500">
+                                {{ $buku->judul }}
+                            </h3>
+                            <p class="font-jost text-[10px] tracking-[4px] uppercase text-white/40 mb-8 font-medium">
+                                {{ $buku->penulis }}
+                            </p>
+                            @if($buku->deskripsi)
+                                <p class="font-jost text-sm text-[#fdfbf7]/60 leading-relaxed font-light line-clamp-2">
+                                    {{ $buku->deskripsi }}
+                                </p>
+                            @endif
+                            <div class="mt-8">
+                                <span class="inline-flex items-center gap-4 text-[#c9a96e] font-jost text-[10px] tracking-[4px] uppercase group-hover:text-white transition-colors duration-300">
+                                    <span class="w-8 h-[1px] bg-[#c9a96e] group-hover:w-20 group-hover:bg-white transition-all duration-500"></span>
+                                </span>
+                            </div>
+                        @endif
+                    </article>
                 @empty
                 @php
                     $defaults = [
