@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if ($this->app->environment('production')) {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
+        if (app()->environment('production')) { 
+            \Illuminate\Support\Facades\URL::forceScheme('https'); 
         }
 
         // Force storage link on every boot for Railway ephemeral filesystem
