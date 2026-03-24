@@ -17,7 +17,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? 'Nana — Septiana Agustin | Penulis & Pendidik' }}">
     <meta property="og:description" content="{{ $metaDescription ?? 'Jelajahi karya dan perjalanan inspiratif Septiana Agustin — penulis, pendidik, dan kepala sekolah dari Bondowoso, Jawa Timur.' }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('images/assets/bg-login.jpg') }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('assets/images/bg-login.jpg') }}">
     <meta property="og:locale" content="id_ID">
     <meta property="og:site_name" content="Septiana Agustin">
 
@@ -25,10 +25,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $title ?? 'Nana — Septiana Agustin' }}">
     <meta name="twitter:description" content="{{ $metaDescription ?? 'Penulis, Pendidik, dan Kepala Sekolah dari Bondowoso, Jawa Timur.' }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('images/assets/bg-login.jpg') }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('assets/images/bg-login.jpg') }}">
 
     {{-- Favicon --}}
-    <link rel="icon" href="{{ asset('images/logo/favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
