@@ -29,12 +29,6 @@ class QuoteResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->rows(3),
-                Forms\Components\FileUpload::make('foto_hero')
-                    ->image()
-                    ->directory('uploads/hero')
-                    ->disk('public')
-                    ->columnSpanFull()
-                    ->label('Foto Background Hero (Opsional)'),
                 Forms\Components\TextInput::make('source')
                     ->placeholder('Contoh: Judul Buku atau Nana'),
                 Forms\Components\Toggle::make('is_active')
