@@ -38,6 +38,54 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#faf8f4] text-deep-brown font-jost antialiased selection:bg-gold/30 opacity-0 transition-opacity duration-[1500ms]" id="luxe-body">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor-dot"></div>
+    <div class="custom-cursor-outline"></div>
+
+    <style>
+        /* Hide default cursor only on non-touch devices */
+        @media (pointer: fine) {
+            body, a, button, input, textarea, select {
+                cursor: none !important;
+            }
+        }
+        
+        .custom-cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #c9a96e;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .custom-cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(201, 169, 110, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            display: none;
+        }
+
+        @media (pointer: fine) {
+            .custom-cursor-dot, .custom-cursor-outline {
+                display: block;
+            }
+        }
+    </style>
+
     <x-nav />
     
     <main>
@@ -69,6 +117,56 @@
     </footer>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.custom-cursor-dot');
+        const cursorOutline = document.querySelector('.custom-cursor-outline');
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Dot follows immediately
+                gsap.to(cursorDot, {
+                    x: posX,
+                    y: posY,
+                    duration: 0.1,
+                    ease: "power2.out"
+                });
+
+                // Outline follows with slight delay
+                gsap.to(cursorOutline, {
+                    x: posX,
+                    y: posY,
+                    duration: 0.5,
+                    ease: "power4.out"
+                });
+            });
+
+            // Add hover effect for clickable elements
+            const clickables = document.querySelectorAll('a, button, input[type="submit"], .cursor-pointer');
+            
+            clickables.forEach((el) => {
+                el.addEventListener('mouseenter', () => {
+                    gsap.to(cursorOutline, {
+                        width: 60,
+                        height: 60,
+                        backgroundColor: "rgba(201, 169, 110, 0.1)",
+                        duration: 0.3
+                    });
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(cursorOutline, {
+                        width: 40,
+                        height: 40,
+                        backgroundColor: "transparent",
+                        duration: 0.3
+                    });
+                });
+            });
+        }
+
         // Global Fade-In
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('luxe-body').classList.remove('opacity-0');
