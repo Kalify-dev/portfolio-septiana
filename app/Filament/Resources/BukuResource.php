@@ -21,7 +21,6 @@ class BukuResource extends Resource
     protected static ?string $pluralModelLabel = 'Buku';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $navigationGroup = 'Tulisan & Inspirasi';
     protected static ?int $navigationSort = 1;
 
     public static function getGlobalSearchResultTitle(\Illuminate\Database\Eloquent\Model $record): string
@@ -47,7 +46,9 @@ class BukuResource extends Resource
                 Forms\Components\TextInput::make('penulis')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Grid::make(2)
+                Forms\Components\Grid::make([
+                    'default' => 2,
+                ])
                     ->schema([
                         Forms\Components\TextInput::make('nomor')
                             ->numeric()
