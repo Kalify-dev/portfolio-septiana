@@ -19,6 +19,8 @@ class ArticleResource extends Resource
     protected static ?string $pluralModelLabel = 'Artikel';
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationGroup = 'Tulisan & Inspirasi';
+    protected static ?int $navigationSort = 0;
 
     public static function getGlobalSearchResultTitle(\Illuminate\Database\Eloquent\Model $record): string
     {

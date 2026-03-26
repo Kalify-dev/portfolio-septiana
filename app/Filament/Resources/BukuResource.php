@@ -21,6 +21,8 @@ class BukuResource extends Resource
     protected static ?string $pluralModelLabel = 'Buku';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationGroup = 'Tulisan & Inspirasi';
+    protected static ?int $navigationSort = 1;
 
     public static function getGlobalSearchResultTitle(\Illuminate\Database\Eloquent\Model $record): string
     {
@@ -40,9 +42,27 @@ class BukuResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('judul')
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('penulis')
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('nomor')
+                            ->numeric()
+                            ->required()
+                            ->default(1),
+                        Forms\Components\Select::make('tipe')
+                            ->options([
+                                'Buku' => 'Buku Utama',
+                                'Antologi' => 'Antologi',
+                                'Karya Ilmiah' => 'Karya Ilmiah',
+                                'Lainnya' => 'Lainnya',
+                            ])
+                            ->required()
+                            ->default('Buku'),
+                    ]),
                 Forms\Components\RichEditor::make('sinopsis')
                     ->label('Sinopsis Buku')
                     ->columnSpanFull(),
