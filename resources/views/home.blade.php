@@ -44,7 +44,7 @@
                         </p>
                         <div class="border-l-2 border-[#c9a96e]/30 pl-8 py-4 my-12">
                             <span class="font-cormorant text-2xl md:text-3xl text-[#c9a96e] italic leading-snug block mb-4">
-                                "Selagi masih sehat dan sempat, berikanlah kebermanfaatan bagi sesama."
+                                "sebab hidup tidak hanya tampak, namun juga berdampak"
                             </span>
                             <span class="text-xs tracking-[4px] uppercase opacity-50">— Prinsip Hidup Septiana Agustin</span>
                         </div>
@@ -86,7 +86,7 @@
             @empty
                 <div class="flex flex-col justify-center">
                     <blockquote class="font-cormorant italic text-3xl md:text-5xl lg:text-6xl text-[#1a110a] leading-relaxed mb-16">
-                        "Selagi masih sehat dan sempat, maka teruslah bermanfaat."
+                        "sebab hidup tidak hanya tampak, namun juga berdampak"
                     </blockquote>
                     <cite class="not-italic font-jost text-[10px] tracking-[6px] text-[#c9a96e] uppercase block opacity-80">
                         — Septiana Agustin

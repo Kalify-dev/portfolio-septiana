@@ -19,8 +19,8 @@
         </h1>
 
         <div class="max-w-2xl border-t border-white/20 pt-16">
-            <p class="font-cormorant text-2xl md:text-4xl italic text-white/95 leading-relaxed font-light tracking-wide italic">
-                "Bermanja syahdu dikala senja, menikmati kopi sembari bermimpi."
+            <p class="font-cormorant text-2xl md:text-4xl italic text-white/95 leading-relaxed font-light tracking-wide">
+                "sebab hidup tidak hanya tampak, namun juga berdampak"
             </p>
         </div>
 
