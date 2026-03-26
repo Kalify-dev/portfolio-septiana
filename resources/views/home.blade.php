@@ -252,43 +252,142 @@
     </section>
 
 
-    {{-- ==================== INSTAGRAM FEED (Elfsight) ==================== --}}
+    {{-- ==================== GALERI CAROUSEL (Premium Fullscreen) ==================== --}}
     <div id="galeri-container" class="w-full">
         <div id="galeri" class="relative -top-24 invisible"></div>
-        <section class="bg-[#1a110a] pt-32 pb-40 overflow-hidden" data-aos="fade-up">
-            
-            {{-- Header Section --}}
-            <div class="max-w-5xl mx-auto px-6 text-center mb-16">
-                <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
-                <h2 class="font-cormorant text-5xl md:text-7xl font-light text-[#fdfbf7] tracking-tighter leading-tight">
-                    Galeri <em class="not-italic text-[#c9a96e]">Instagram</em>
-                </h2>
-            </div>
+        <section class="bg-[#1a110a] overflow-hidden" data-aos="fade-up">
 
-            {{-- Elfsight Instagram Feed Widget --}}
-            <div class="max-w-[1400px] mx-auto px-4">
-                <script src="https://elfsightcdn.com/platform.js" async></script>
-                <div class="elfsight-app-73013661-b17b-47d1-a1bc-ac34a1825bda" data-elfsight-app-lazy></div>
-            </div>
+            @php
+                $allPhotos = [];
+                foreach ($galeris->sortBy('urutan') as $galeri) {
+                    if ($galeri->foto) {
+                        $photos = is_array($galeri->foto) ? $galeri->foto : json_decode($galeri->foto, true);
+                        if (is_array($photos)) {
+                            foreach ($photos as $photo) {
+                                $allPhotos[] = [
+                                    'url'   => asset('storage/' . $photo),
+                                    'label' => $galeri->judul_kegiatan ?? '',
+                                ];
+                            }
+                        }
+                    }
+                }
+            @endphp
 
-            {{-- Instagram Follow Button --}}
-            <div class="mt-20 text-center px-6">
-                <a href="https://instagram.com/agustinseptiana" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="inline-block group relative">
-                    <div class="absolute -inset-4 bg-[#c9a96e]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div class="relative flex items-center gap-8 bg-transparent border border-[#c9a96e]/20 px-16 py-6 overflow-hidden rounded-sm transition-all duration-700 hover:border-[#c9a96e]">
-                        <div class="absolute inset-0 bg-[#c9a96e] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
-                        <span class="relative font-jost text-xs tracking-[8px] uppercase font-bold text-[#c9a96e] group-hover:text-[#1a110a] transition-colors duration-500">
-                            Follow on Instagram
+            @if(count($allPhotos) === 0)
+                {{-- Empty State --}}
+                <div class="py-48 text-center">
+                    <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
+                    <h2 class="font-cormorant text-5xl md:text-7xl font-light text-[#fdfbf7] tracking-tighter leading-tight mb-16">
+                        Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
+                    </h2>
+                    <p class="font-cormorant italic text-2xl text-white/30">Foto akan segera hadir...</p>
+                </div>
+            @else
+
+            {{-- FULLSCREEN CAROUSEL --}}
+            <div
+                x-data="{
+                    active: 0,
+                    total: {{ count($allPhotos) }},
+                    timer: null,
+                    next() { this.active = (this.active + 1) % this.total; },
+                    prev() { this.active = (this.active - 1 + this.total) % this.total; },
+                    goTo(i) { this.active = i; clearInterval(this.timer); this.startAuto(); },
+                    startAuto() { this.timer = setInterval(() => this.next(), 5500); }
+                }"
+                x-init="startAuto()"
+                class="relative w-full"
+                style="height: 100vh; max-height: 900px; min-height: 500px;"
+            >
+                {{-- SLIDES --}}
+                @foreach($allPhotos as $idx => $item)
+                <div
+                    x-show="active === {{ $idx }}"
+                    x-transition:enter="transition-all ease-in-out duration-[1200ms]"
+                    x-transition:enter-start="opacity-0 scale-105"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition-all ease-in-out duration-[800ms]"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-95"
+                    class="absolute inset-0"
+                    style="display:none;"
+                >
+                    {{-- Background Image --}}
+                    <img src="{{ $item['url'] }}"
+                         alt="{{ $item['label'] ?: 'Galeri Septiana Agustin' }}"
+                         class="w-full h-full object-cover"
+                         loading="{{ $idx === 0 ? 'eager' : 'lazy' }}">
+
+                    {{-- Gradient Overlays --}}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+
+                    {{-- Slide Content (Bottom Left) --}}
+                    <div class="absolute bottom-0 left-0 p-10 md:p-20 max-w-2xl">
+                        <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block opacity-80">
+                            Moments & Memories
                         </span>
-                        <svg class="relative w-5 h-5 text-[#c9a96e] group-hover:text-[#1a110a] transition-all duration-500 transform group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                        @if($item['label'])
+                        <p class="font-cormorant italic text-3xl md:text-5xl text-white font-light leading-tight mb-4">
+                            {{ $item['label'] }}
+                        </p>
+                        @endif
+                        <div class="font-jost text-[10px] tracking-[4px] uppercase text-white/40 mt-4">
+                            {{ $idx + 1 }} / {{ count($allPhotos) }}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+                {{-- HEADER OVERLAY (Top Center) --}}
+                <div class="absolute top-0 left-0 right-0 pt-20 text-center z-10 pointer-events-none">
+                    <h2 class="font-cormorant text-4xl md:text-6xl font-light text-white/90 tracking-tighter leading-tight drop-shadow-2xl">
+                        Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
+                    </h2>
+                </div>
+
+                {{-- PREV / NEXT ARROWS --}}
+                <button @click="prev()"
+                    class="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-20 w-14 h-14 flex items-center justify-center border border-white/20 hover:border-[#c9a96e] text-white/60 hover:text-[#c9a96e] transition-all duration-500 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                    </svg>
+                </button>
+                <button @click="next()"
+                    class="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 w-14 h-14 flex items-center justify-center border border-white/20 hover:border-[#c9a96e] text-white/60 hover:text-[#c9a96e] transition-all duration-500 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+                    </svg>
+                </button>
+
+                {{-- DOT INDICATORS (Bottom Right) --}}
+                <div class="absolute bottom-10 right-10 md:right-20 z-20 flex gap-3 items-center">
+                    @foreach($allPhotos as $idx => $item)
+                    <button @click="goTo({{ $idx }})"
+                        class="transition-all duration-500 rounded-full"
+                        :class="active === {{ $idx }}
+                            ? 'w-8 h-[2px] bg-[#c9a96e]'
+                            : 'w-2 h-2 bg-white/30 hover:bg-white/60 rounded-full'">
+                    </button>
+                    @endforeach
+                </div>
+
+                {{-- Instagram Follow Button (Bottom Center) --}}
+                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+                    <a href="https://instagram.com/agustinseptiana"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="inline-flex items-center gap-4 font-jost text-[10px] tracking-[5px] uppercase text-white/50 hover:text-[#c9a96e] transition-colors duration-500">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                         </svg>
-                    </div>
-                </a>
+                        @agustinseptiana
+                    </a>
+                </div>
+
             </div>
+            @endif
 
         </section>
     </div>
