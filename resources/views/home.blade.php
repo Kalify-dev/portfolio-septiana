@@ -252,123 +252,119 @@
     </section>
 
 
-    {{-- ==================== GALERI MOSAIC (Dee Lestari Style) ==================== --}}
+    {{-- ==================== GALERI (High-End Mosaic) ==================== --}}
     <div id="galeri-container" class="w-full">
         <div id="galeri" class="relative -top-24 invisible"></div>
-        <section class="bg-[#1a110a] py-24 md:py-32 overflow-hidden" data-aos="fade-up">
+        <section class="bg-[#1a110a] pt-32 pb-40 overflow-hidden" data-aos="fade-up">
 
-            @php
-                $allPhotos = [];
-                foreach ($galeris->sortBy('urutan') as $galeri) {
-                    if ($galeri->foto) {
-                        $photos = is_array($galeri->foto) ? $galeri->foto : json_decode($galeri->foto, true);
-                        if (is_array($photos)) {
-                            foreach ($photos as $photo) {
-                                $allPhotos[] = [
-                                    'url'   => asset('storage/' . $photo),
-                                    'label' => $galeri->judul_kegiatan ?? '',
-                                ];
+            {{-- Header Section (Minimalis & Terpusat) --}}
+            <div class="max-w-5xl mx-auto px-6 text-center mb-24">
+                <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
+                <h2 class="font-cormorant text-5xl md:text-7xl font-light text-[#fdfbf7] tracking-tighter leading-tight">
+                    Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
+                </h2>
+            </div>
+
+            @if($galeris->isEmpty())
+            <div class="text-center py-32 opacity-30">
+                <p class="font-cormorant italic text-3xl text-white">Galeri foto akan segera hadir...</p>
+            </div>
+            @else
+                {{-- Kumpulkan semua foto dari tabel galleries (Local Data) --}}
+                @php
+                    $allPhotos = [];
+                    foreach ($galeris->sortBy('urutan') as $galeri) {
+                        if ($galeri->foto) {
+                            $photos = is_array($galeri->foto) ? $galeri->foto : json_decode($galeri->foto, true);
+                            if (is_array($photos)) {
+                                foreach ($photos as $photo) {
+                                    $allPhotos[] = [
+                                        'url'   => asset('storage/' . $photo),
+                                        'label' => $galeri->judul_kegiatan ?? '',
+                                    ];
+                                }
                             }
                         }
                     }
-                }
-            @endphp
+                    // Batasi 10 foto untuk tampilan grid yang rapat & seimbang
+                    $allPhotos = array_slice($allPhotos, 0, 10);
+                @endphp
 
-            {{-- Section Header --}}
-            <div class="max-w-[1400px] mx-auto px-8 md:px-16 mb-16">
-                <div class="flex flex-col md:flex-row justify-between items-end border-b border-white/5 pb-12">
-                    <div>
-                        <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
-                        <h2 class="font-cormorant text-5xl md:text-6xl font-light text-[#fdfbf7] tracking-tighter leading-none">
-                            Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
-                        </h2>
-                    </div>
-                    <a href="https://instagram.com/agustinseptiana"
-                       target="_blank" rel="noopener noreferrer"
-                       class="mt-8 md:mt-0 inline-flex items-center gap-3 font-jost text-[10px] tracking-[5px] uppercase text-white/40 hover:text-[#c9a96e] transition-colors duration-500 pb-1">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                        @agustinseptiana —
-                    </a>
-                </div>
-            </div>
-
-            @if(count($allPhotos) === 0)
-                <div class="text-center py-20 opacity-30">
-                    <p class="font-cormorant italic text-2xl text-white">Foto akan segera hadir...</p>
-                </div>
-            @else
-
-            {{-- MOSAIC GRID (Dee Lestari style & Mobile Responsive) --}}
-            <div class="w-full overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none;">
-                <div class="flex gap-0" style="min-width: max-content;">
+                {{-- Full-Width Grid: 0 Gap, 1:1 Aspect Ratio (Mosaic Style) --}}
+                <div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-0 border-y border-white/5">
                     @foreach($allPhotos as $idx => $item)
-                    <div class="group relative overflow-hidden flex-shrink-0 w-[50vw] h-[50vw] sm:w-[35vw] sm:h-[35vw] md:w-[260px] md:h-[260px] snap-start"
-                         x-data="{ open: false }"
-                         @keydown.escape.window="open = false">
+                    <div class="group relative aspect-square overflow-hidden bg-stone-900"
+                         x-data="{ lightbox: false }"
+                         @keydown.escape.window="lightbox = false">
 
-                        <img src="{{ $item['url'] }}"
-                             alt="{{ $item['label'] ?: 'Galeri Septiana Agustin' }}"
-                             class="w-full h-full object-cover transition-all duration-[2500ms] group-hover:scale-110"
-                             loading="lazy">
+                        {{-- Image with Zoom Hover Effect --}}
+                        <div class="w-full h-full cursor-zoom-in relative" @click="lightbox = true">
+                            <img src="{{ $item['url'] }}"
+                                 alt="{{ $item['label'] ?: 'Galeri Septiana Agustin' }}"
+                                 class="w-full h-full object-cover transition-all duration-[3000ms] group-hover:scale-110"
+                                 loading="lazy">
 
-                        {{-- Hover Overlay --}}
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-700 flex flex-col items-center justify-center cursor-zoom-in"
-                             @click="open = true">
-                            <svg class="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
-                            </svg>
-                            @if($item['label'])
-                            <p class="font-cormorant italic text-white text-xs md:text-sm text-center px-4 opacity-0 group-hover:opacity-80 transition-all duration-500 leading-snug">
-                                {{ $item['label'] }}
-                            </p>
-                            @endif
+                            {{-- Premium Hover Overlay (Dark Fade + Icon) --}}
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center">
+                                <div class="p-4 rounded-full border border-white/20 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700 scale-75 group-hover:scale-100">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
 
-                        {{-- Lightbox --}}
-                        <div x-show="open"
-                             x-transition:enter="transition ease-out duration-200"
+                        {{-- Lightbox (Popup Gambar) --}}
+                        <div x-show="lightbox"
+                             x-transition:enter="transition ease-out duration-300"
                              x-transition:enter-start="opacity-0"
                              x-transition:enter-end="opacity-100"
-                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave="transition ease-in duration-200"
                              x-transition:leave-start="opacity-100"
                              x-transition:leave-end="opacity-0"
-                             class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4 md:p-6 cursor-zoom-out"
-                             @click="open = false"
+                             class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-6 cursor-zoom-out"
+                             @click="lightbox = false"
                              style="display:none;">
                             <img src="{{ $item['url'] }}"
-                                 class="max-h-[85vh] max-w-[95vw] object-contain shadow-2xl">
-                            <button class="absolute top-4 right-4 md:top-6 md:right-8 text-white/40 hover:text-white transition-colors"
-                                    @click.stop="open = false">
-                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>
+                                 alt="{{ $item['label'] ?: 'Galeri' }}"
+                                 class="max-h-[90vh] max-w-[90vw] object-contain rounded-sm shadow-2xl">
+                            <button class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+                                    @click.stop="lightbox = false">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                             </button>
                             @if($item['label'])
-                            <div class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-full px-6">
-                                <p class="font-cormorant italic text-white/80 text-lg md:text-xl tracking-wide text-center">{{ $item['label'] }}</p>
+                            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center w-full px-10">
+                                <p class="font-cormorant italic text-white/70 text-2xl tracking-wide">{{ $item['label'] }}</p>
                             </div>
                             @endif
                         </div>
-
                     </div>
                     @endforeach
                 </div>
-            </div>
 
-            {{-- Counter strip --}}
-            <div class="max-w-[1400px] mx-auto px-6 md:px-16 mt-8 flex justify-between items-center opacity-80">
-                <span class="font-jost text-[9px] md:text-[10px] tracking-[4px] uppercase text-[#c9a96e]">
-                    {{ count($allPhotos) }} MOMENTS
-                </span>
-                <span class="font-jost text-[8px] md:text-[9px] tracking-[3px] uppercase text-white/60 flex items-center gap-2">
-                    <svg class="w-3 h-3 animate-[pulse_2s_ease-in-out_infinite]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Geser
-                </span>
-            </div>
+                {{-- Luxury Amber Instagram Button --}}
+                <div class="mt-32 text-center px-6">
+                    <a href="https://instagram.com/agustinseptiana"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="inline-block group relative">
+                        <div class="absolute -inset-4 bg-[#c9a96e]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div class="relative flex items-center gap-8 bg-transparent border border-[#c9a96e]/20 px-16 py-6 overflow-hidden rounded-sm transition-all duration-700 hover:border-[#c9a96e]">
+                            {{-- Sliding Background Hover --}}
+                            <div class="absolute inset-0 bg-[#c9a96e] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out"></div>
+
+                            <span class="relative font-jost text-xs tracking-[8px] uppercase font-bold text-[#c9a96e] group-hover:text-[#1a110a] transition-colors duration-500">
+                                Follow on Instagram
+                            </span>
+                            <svg class="relative w-5 h-5 text-[#c9a96e] group-hover:text-[#1a110a] transition-all duration-500 transform group-hover:rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
             @endif
-
         </section>
     </div>
 
