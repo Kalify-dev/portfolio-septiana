@@ -252,10 +252,10 @@
     </section>
 
 
-    {{-- ==================== GALERI CAROUSEL (Premium Fullscreen) ==================== --}}
+    {{-- ==================== GALERI MOSAIC (Dee Lestari Style) ==================== --}}
     <div id="galeri-container" class="w-full">
         <div id="galeri" class="relative -top-24 invisible"></div>
-        <section class="bg-[#1a110a] overflow-hidden" data-aos="fade-up">
+        <section class="bg-[#1a110a] py-24 md:py-32 overflow-hidden" data-aos="fade-up">
 
             @php
                 $allPhotos = [];
@@ -274,118 +274,98 @@
                 }
             @endphp
 
+            {{-- Section Header --}}
+            <div class="max-w-[1400px] mx-auto px-8 md:px-16 mb-16">
+                <div class="flex flex-col md:flex-row justify-between items-end border-b border-white/5 pb-12">
+                    <div>
+                        <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
+                        <h2 class="font-cormorant text-5xl md:text-6xl font-light text-[#fdfbf7] tracking-tighter leading-none">
+                            Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
+                        </h2>
+                    </div>
+                    <a href="https://instagram.com/agustinseptiana"
+                       target="_blank" rel="noopener noreferrer"
+                       class="mt-8 md:mt-0 inline-flex items-center gap-3 font-jost text-[10px] tracking-[5px] uppercase text-white/40 hover:text-[#c9a96e] transition-colors duration-500 pb-1">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        @agustinseptiana —
+                    </a>
+                </div>
+            </div>
+
             @if(count($allPhotos) === 0)
-                {{-- Empty State --}}
-                <div class="py-48 text-center">
-                    <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block">Moments & Memories</span>
-                    <h2 class="font-cormorant text-5xl md:text-7xl font-light text-[#fdfbf7] tracking-tighter leading-tight mb-16">
-                        Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
-                    </h2>
-                    <p class="font-cormorant italic text-2xl text-white/30">Foto akan segera hadir...</p>
+                <div class="text-center py-20 opacity-30">
+                    <p class="font-cormorant italic text-2xl text-white">Foto akan segera hadir...</p>
                 </div>
             @else
 
-            {{-- FULLSCREEN CAROUSEL --}}
-            <div
-                x-data="{
-                    active: 0,
-                    total: {{ count($allPhotos) }},
-                    timer: null,
-                    next() { this.active = (this.active + 1) % this.total; },
-                    prev() { this.active = (this.active - 1 + this.total) % this.total; },
-                    goTo(i) { this.active = i; clearInterval(this.timer); this.startAuto(); },
-                    startAuto() { this.timer = setInterval(() => this.next(), 5500); }
-                }"
-                x-init="startAuto()"
-                class="relative w-full"
-                style="height: 100vh; max-height: 900px; min-height: 500px;"
-            >
-                {{-- SLIDES --}}
-                @foreach($allPhotos as $idx => $item)
-                <div
-                    x-show="active === {{ $idx }}"
-                    x-transition:enter="transition-all ease-in-out duration-[1200ms]"
-                    x-transition:enter-start="opacity-0 scale-105"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition-all ease-in-out duration-[800ms]"
-                    x-transition:leave-start="opacity-100 scale-100"
-                    x-transition:leave-end="opacity-0 scale-95"
-                    class="absolute inset-0"
-                    style="display:none;"
-                >
-                    {{-- Background Image --}}
-                    <img src="{{ $item['url'] }}"
-                         alt="{{ $item['label'] ?: 'Galeri Septiana Agustin' }}"
-                         class="w-full h-full object-cover"
-                         loading="{{ $idx === 0 ? 'eager' : 'lazy' }}">
-
-                    {{-- Gradient Overlays --}}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30"></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-
-                    {{-- Slide Content (Bottom Left) --}}
-                    <div class="absolute bottom-0 left-0 p-10 md:p-20 max-w-2xl">
-                        <span class="text-[10px] font-semibold tracking-[8px] text-[#c9a96e] uppercase mb-6 block opacity-80">
-                            Moments & Memories
-                        </span>
-                        @if($item['label'])
-                        <p class="font-cormorant italic text-3xl md:text-5xl text-white font-light leading-tight mb-4">
-                            {{ $item['label'] }}
-                        </p>
-                        @endif
-                        <div class="font-jost text-[10px] tracking-[4px] uppercase text-white/40 mt-4">
-                            {{ $idx + 1 }} / {{ count($allPhotos) }}
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
-                {{-- HEADER OVERLAY (Top Center) --}}
-                <div class="absolute top-0 left-0 right-0 pt-20 text-center z-10 pointer-events-none">
-                    <h2 class="font-cormorant text-4xl md:text-6xl font-light text-white/90 tracking-tighter leading-tight drop-shadow-2xl">
-                        Galeri <em class="not-italic text-[#c9a96e]">Kegiatan</em>
-                    </h2>
-                </div>
-
-                {{-- PREV / NEXT ARROWS --}}
-                <button @click="prev()"
-                    class="absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-20 w-14 h-14 flex items-center justify-center border border-white/20 hover:border-[#c9a96e] text-white/60 hover:text-[#c9a96e] transition-all duration-500 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
-                    </svg>
-                </button>
-                <button @click="next()"
-                    class="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 w-14 h-14 flex items-center justify-center border border-white/20 hover:border-[#c9a96e] text-white/60 hover:text-[#c9a96e] transition-all duration-500 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
-                    </svg>
-                </button>
-
-                {{-- DOT INDICATORS (Bottom Right) --}}
-                <div class="absolute bottom-10 right-10 md:right-20 z-20 flex gap-3 items-center">
+            {{-- MOSAIC GRID (Dee Lestari style — small square photos in a tight strip) --}}
+            <div class="w-full overflow-x-auto" style="scrollbar-width: none;">
+                <div class="flex gap-0" style="min-width: max-content;">
                     @foreach($allPhotos as $idx => $item)
-                    <button @click="goTo({{ $idx }})"
-                        class="transition-all duration-500 rounded-full"
-                        :class="active === {{ $idx }}
-                            ? 'w-8 h-[2px] bg-[#c9a96e]'
-                            : 'w-2 h-2 bg-white/30 hover:bg-white/60 rounded-full'">
-                    </button>
+                    <div class="group relative overflow-hidden flex-shrink-0"
+                         style="width: 260px; height: 260px;"
+                         x-data="{ open: false }"
+                         @keydown.escape.window="open = false">
+
+                        <img src="{{ $item['url'] }}"
+                             alt="{{ $item['label'] ?: 'Galeri Septiana Agustin' }}"
+                             class="w-full h-full object-cover transition-all duration-[2500ms] group-hover:scale-110"
+                             loading="lazy">
+
+                        {{-- Hover Overlay --}}
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-700 flex flex-col items-center justify-center cursor-zoom-in"
+                             @click="open = true">
+                            <svg class="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 mb-2" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+                            </svg>
+                            @if($item['label'])
+                            <p class="font-cormorant italic text-white text-sm text-center px-4 opacity-0 group-hover:opacity-80 transition-all duration-500 leading-snug">
+                                {{ $item['label'] }}
+                            </p>
+                            @endif
+                        </div>
+
+                        {{-- Lightbox --}}
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0"
+                             x-transition:enter-end="opacity-100"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0"
+                             class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-6 cursor-zoom-out"
+                             @click="open = false"
+                             style="display:none;">
+                            <img src="{{ $item['url'] }}"
+                                 class="max-h-[88vh] max-w-[88vw] object-contain shadow-2xl">
+                            <button class="absolute top-6 right-8 text-white/40 hover:text-white transition-colors"
+                                    @click.stop="open = false">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                            @if($item['label'])
+                            <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+                                <p class="font-cormorant italic text-white/60 text-xl tracking-wide text-center">{{ $item['label'] }}</p>
+                            </div>
+                            @endif
+                        </div>
+
+                    </div>
                     @endforeach
                 </div>
+            </div>
 
-                {{-- Instagram Follow Button (Bottom Center) --}}
-                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-                    <a href="https://instagram.com/agustinseptiana"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="inline-flex items-center gap-4 font-jost text-[10px] tracking-[5px] uppercase text-white/50 hover:text-[#c9a96e] transition-colors duration-500">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                        @agustinseptiana
-                    </a>
-                </div>
-
+            {{-- Counter strip --}}
+            <div class="max-w-[1400px] mx-auto px-8 md:px-16 mt-10 flex justify-between items-center">
+                <span class="font-jost text-[9px] tracking-[5px] uppercase text-white/20">
+                    {{ count($allPhotos) }} foto
+                </span>
+                <span class="font-jost text-[9px] tracking-[4px] uppercase text-white/20">
+                    ← geser untuk melihat lebih banyak
+                </span>
             </div>
             @endif
 
