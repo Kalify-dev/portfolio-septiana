@@ -92,24 +92,24 @@
         {{ $slot }}
     </main>
 
-    <footer class="bg-black/95 py-10 px-6 md:px-12 border-t border-white/5">
-        <div class="max-w-[1400px] mx-auto flex flex-row justify-between items-end gap-0">
-            <!-- LEFT SISI: SEPTIANA AGUSTIN -->
-            <div class="text-left">
-                <div class="font-cormorant text-lg md:text-xl tracking-[6px] text-[#FAF8F5]/50 uppercase mb-2 leading-none">Septiana Agustin</div>
+    <footer class="bg-black/95 py-12 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end gap-10 md:gap-0">
+            <!-- LEFT SIDE: SEPTIANA AGUSTIN -->
+            <div class="text-center md:text-left order-2 md:order-1">
+                <div class="font-cormorant text-lg md:text-xl tracking-[6px] text-[#FAF8F5]/50 uppercase mb-3 md:mb-2 leading-none">Septiana Agustin</div>
                 <p class="text-[9px] text-[#FAF8F5]/30 tracking-[4px] uppercase leading-none">
                     © 2026 Septiana Agustin.
                 </p>
             </div>
 
-            <!-- RIGHT SISI: HANYA LOGO -->
-            <div class="text-right">
+            <!-- RIGHT SIDE: LOGO -->
+            <div class="text-center md:text-right order-1 md:order-2">
                 <a href="https://kalifydev.netlify.app/" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="inline-block opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-all duration-500">
                     <img src="{{ asset('assets/images/kalify_logo.png') }}" 
-                         class="h-8 md:h-10 w-auto ml-auto" 
+                         class="h-6 md:h-10 w-auto mx-auto md:ml-auto" 
                          alt="Kalify.dev - Engineered for Simplicity">
                 </a>
             </div>
