@@ -3,7 +3,7 @@
     <div class="custom-left">
         <div class="overlay"></div>
         <div class="quote-wrapper">
-            <blockquote>"Bermanja syahdu dikala senja, menikmati kopi sembari bermimpi."</blockquote>
+            <blockquote>"sebab hidup tidak hanya tampak, namun juga berdampak"</blockquote>
             <p class="author">— Septiana Agustin</p>
         </div>
     </div>
