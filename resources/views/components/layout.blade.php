@@ -92,31 +92,32 @@
         {{ $slot }}
     </main>
 
-    <footer class="bg-[#0a0908] border-t border-white/5">
-        {{-- Mobile: vertikal, centered. Desktop: horizontal, space-between --}}
-        <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-12">
-            {{-- Mobile view: semua stack di tengah --}}
-            <div class="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between gap-8 md:gap-0">
+    <footer class="bg-[#0a0908] border-t border-white/5 py-12">
+        <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+            {{-- Container: Stack (Col) on mobile, Row on desktop --}}
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
 
-                {{-- Nama & Copyright --}}
-                <div class="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
-                    <span class="font-cormorant text-base md:text-lg tracking-[6px] text-white/50 uppercase leading-none">
+                {{-- LEFT SIDE: Name & Copyright --}}
+                <div class="flex flex-col items-center md:items-start gap-3">
+                    <span class="font-cormorant text-base md:text-lg tracking-[6px] text-white/50 uppercase leading-none text-center md:text-left">
                         Septiana Agustin
                     </span>
-                    <span class="text-[9px] text-white/25 tracking-[4px] uppercase leading-none">
+                    <span class="text-[9px] text-white/25 tracking-[4px] uppercase leading-none text-center md:text-left">
                         © 2026 Septiana Agustin.
                     </span>
                 </div>
 
-                {{-- Logo Kalify --}}
-                <a href="https://kalifydev.netlify.app/"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="block opacity-60 hover:opacity-90 transition-opacity duration-500">
-                    <img src="{{ asset('assets/images/kalify_logo.png') }}"
-                         class="h-7 md:h-9 w-auto"
-                         alt="Kalify.dev - Engineered for Simplicity">
-                </a>
+                {{-- RIGHT SIDE: Logo --}}
+                <div class="flex justify-center md:justify-end">
+                    <a href="https://kalifydev.netlify.app/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="opacity-60 hover:opacity-90 transition-opacity duration-500">
+                        <img src="{{ asset('assets/images/kalify_logo.png') }}"
+                             class="h-7 md:h-9 w-auto"
+                             alt="Kalify.dev - Engineered for Simplicity">
+                    </a>
+                </div>
 
             </div>
         </div>
