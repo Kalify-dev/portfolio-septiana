@@ -300,12 +300,11 @@
                 </div>
             @else
 
-            {{-- MOSAIC GRID (Dee Lestari style — small square photos in a tight strip) --}}
-            <div class="w-full overflow-x-auto" style="scrollbar-width: none;">
+            {{-- MOSAIC GRID (Dee Lestari style & Mobile Responsive) --}}
+            <div class="w-full overflow-x-auto snap-x snap-mandatory pb-4" style="scrollbar-width: none;">
                 <div class="flex gap-0" style="min-width: max-content;">
                     @foreach($allPhotos as $idx => $item)
-                    <div class="group relative overflow-hidden flex-shrink-0"
-                         style="width: 260px; height: 260px;"
+                    <div class="group relative overflow-hidden flex-shrink-0 w-[50vw] h-[50vw] sm:w-[35vw] sm:h-[35vw] md:w-[260px] md:h-[260px] snap-start"
                          x-data="{ open: false }"
                          @keydown.escape.window="open = false">
 
@@ -317,11 +316,11 @@
                         {{-- Hover Overlay --}}
                         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-700 flex flex-col items-center justify-center cursor-zoom-in"
                              @click="open = true">
-                            <svg class="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 mb-2" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
                             </svg>
                             @if($item['label'])
-                            <p class="font-cormorant italic text-white text-sm text-center px-4 opacity-0 group-hover:opacity-80 transition-all duration-500 leading-snug">
+                            <p class="font-cormorant italic text-white text-xs md:text-sm text-center px-4 opacity-0 group-hover:opacity-80 transition-all duration-500 leading-snug">
                                 {{ $item['label'] }}
                             </p>
                             @endif
@@ -335,20 +334,20 @@
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100"
                              x-transition:leave-end="opacity-0"
-                             class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-6 cursor-zoom-out"
+                             class="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4 md:p-6 cursor-zoom-out"
                              @click="open = false"
                              style="display:none;">
                             <img src="{{ $item['url'] }}"
-                                 class="max-h-[88vh] max-w-[88vw] object-contain shadow-2xl">
-                            <button class="absolute top-6 right-8 text-white/40 hover:text-white transition-colors"
+                                 class="max-h-[85vh] max-w-[95vw] object-contain shadow-2xl">
+                            <button class="absolute top-4 right-4 md:top-6 md:right-8 text-white/40 hover:text-white transition-colors"
                                     @click.stop="open = false">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
                             </button>
                             @if($item['label'])
-                            <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
-                                <p class="font-cormorant italic text-white/60 text-xl tracking-wide text-center">{{ $item['label'] }}</p>
+                            <div class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-full px-6">
+                                <p class="font-cormorant italic text-white/80 text-lg md:text-xl tracking-wide text-center">{{ $item['label'] }}</p>
                             </div>
                             @endif
                         </div>
@@ -359,12 +358,13 @@
             </div>
 
             {{-- Counter strip --}}
-            <div class="max-w-[1400px] mx-auto px-8 md:px-16 mt-10 flex justify-between items-center">
-                <span class="font-jost text-[9px] tracking-[5px] uppercase text-white/20">
-                    {{ count($allPhotos) }} foto
+            <div class="max-w-[1400px] mx-auto px-6 md:px-16 mt-8 flex justify-between items-center opacity-80">
+                <span class="font-jost text-[9px] md:text-[10px] tracking-[4px] uppercase text-[#c9a96e]">
+                    {{ count($allPhotos) }} MOMENTS
                 </span>
-                <span class="font-jost text-[9px] tracking-[4px] uppercase text-white/20">
-                    ← geser untuk melihat lebih banyak
+                <span class="font-jost text-[8px] md:text-[9px] tracking-[3px] uppercase text-white/60 flex items-center gap-2">
+                    <svg class="w-3 h-3 animate-[pulse_2s_ease-in-out_infinite]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Geser
                 </span>
             </div>
             @endif
